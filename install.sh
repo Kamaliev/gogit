@@ -24,11 +24,11 @@ fi
 
 URL="https://github.com/$REPO/releases/$VERSION/download/gogit-${OS_NAME}-${ARCH}"
 echo "⬇️  Скачивание $URL..."
-curl -L -o gossh "$URL"
+curl -L -o gogit "$URL"
 
-chmod +x gossh
-sudo mv gossh "$INSTALL_DIR/gossh"
+chmod +x gogit
+sudo mv gogit "$INSTALL_DIR/gogit"
 
-if [[ "$OS_NAME" == "mac" ]]; then sudo xattr -d com.apple.quarantine "$INSTALL_DIR/gossh"; fi
+if [[ "$OS_NAME" == "mac" ]]; then sudo xattr -d com.apple.quarantine "$INSTALL_DIR/gogit"; fi
 
 echo "✅ Установка завершена! Теперь можно использовать команду: gogit"
