@@ -31,14 +31,14 @@ func readGitConfigFile(filePath string) (map[string]string, error) {
 		}
 
 		if strings.HasPrefix(line, "[") && strings.HasSuffix(line, "]") {
-			block = line[1 : len(line)-1]
+			block = strings.ToLower(line[1 : len(line)-1])
 			continue
 		}
 
 		parts := strings.SplitN(line, "=", 2)
 		if len(parts) == 2 {
-			key := strings.TrimSpace(parts[0])
-			value := strings.TrimSpace(parts[1])
+			key := strings.ToLower(strings.TrimSpace(parts[0]))
+			value := strings.ToLower(strings.TrimSpace(parts[1]))
 			config[fmt.Sprintf("%s.%s", block, key)] = value
 		}
 	}
@@ -71,14 +71,14 @@ func getCurrentGitProfile() (GitProfile, string, error) {
 			continue
 		}
 
-		if val, ok := config["user.Name"]; ok {
+		if val, ok := config["user.name"]; ok {
 			name = val
 		}
-		if val, ok := config["user.Email"]; ok {
+		if val, ok := config["user.email"]; ok {
 			email = val
 		}
 
-		if val, ok := config["core.sshCommand"]; ok && strings.Contains(val, "-i") {
+		if val, ok := config["core.sshcommand"]; ok && strings.Contains(val, "-i") {
 			parts := strings.Split(val, " ")
 			for i, part := range parts {
 				if part == "-i" && i+1 < len(parts) {
