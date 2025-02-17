@@ -31,15 +31,15 @@ func readGitConfigFile(filePath string) (map[string]string, error) {
 		}
 
 		if strings.HasPrefix(line, "[") && strings.HasSuffix(line, "]") {
-			block = strings.ToLower(line[1 : len(line)-1])
+			block = line[1 : len(line)-1]
 			continue
 		}
 
 		parts := strings.SplitN(line, "=", 2)
 		if len(parts) == 2 {
-			key := strings.ToLower(strings.TrimSpace(parts[0]))
-			value := strings.ToLower(strings.TrimSpace(parts[1]))
-			config[fmt.Sprintf("%s.%s", block, key)] = value
+			key := strings.TrimSpace(parts[0])
+			value := strings.TrimSpace(parts[1])
+			config[strings.ToLower(fmt.Sprintf("%s.%s", block, key))] = value
 		}
 	}
 
